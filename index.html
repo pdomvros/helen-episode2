@@ -31,7 +31,7 @@
       margin-top: 5px;
       margin-bottom: 10px;
     }
-    /* Νέα οδηγία σε ροζ, italic, comic sans */
+    /* Οδηγία σε ροζ, italic */
     .instruction {
       color: pink;
       font-style: italic;
@@ -69,6 +69,7 @@
       border: 1px solid #ccc;
       border-radius: 4px;
     }
+    /* Κουμπιά απαντήσεων */
     .image-container button {
       margin: 5px 0;
       padding: 10px;
@@ -105,7 +106,7 @@
       font-size: 1.1rem;
       margin-top: 15px;
     }
-    /* Κουμπί εκτύπωσης σε χρυσό πλαίσιο */
+    /* Κουμπί εκτύπωσης (χρυσό πλαίσιο) */
     .print-button {
       display: block;
       margin: 20px auto;
@@ -120,46 +121,65 @@
     .print-button:hover {
       background-color: #333;
     }
+
+    /* 
+      MEDIA QUERY για εκτύπωση:
+      - Κρύβουμε όλα τα λάθος κουμπιά (data-correct="false").
+      - Κρύβουμε επίσης κουμπιά σκορ, εκτύπωσης κ.λπ. 
+    */
+    @media print {
+      .image-container button[data-correct="false"] {
+        display: none !important;
+      }
+      /* Κρύβουμε το κουμπί εμφάνισης σκορ, το κουμπί εκτύπωσης, 
+         το σκορ, καθώς και την οδηγία */
+      .score-button,
+      .print-button,
+      #scoreDisplay,
+      .instruction {
+        display: none !important;
+      }
+    }
   </style>
 </head>
 <body>
 
 <!-- Πληροφορία δημιουργίας στην κορυφή της σελίδας (κεντραρισμένη) -->
 <div class="creator-info">
-  Δημιουργία: Παναγιώτης Δόμβρος (CC BY-NC) ✨
+  Δημιουργία: Παναγιώτης Δόμβρος (CC BY-NC)
 </div>
 
 <!-- Τίτλος και Υπότιτλος -->
-<h1>Ελένη του Ευριπίδη: Β΄ Επεισόδιο 🤩</h1>
-<h2 class="subtitle">Μια συνολική θεώρηση 💡</h2>
+<h1>Ελένη του Ευριπίδη: Β΄ Επεισόδιο</h1>
+<h2 class="subtitle">Μια συνολική θεώρηση</h2>
 
 <!-- Οδηγία σε ροζ, italic -->
 <div class="instruction">Επίλεξε τη σωστή λεζάντα για κάθε απεικόνιση</div>
 
 <!-- Σκηνή 1 -->
-<h2>Σκηνή 1 🎭🌀</h2>
+<h2>Σκηνή 1</h2>
 <div class="scene">
   <div class="row">
     <!-- Εικόνα 1-1 (ερώτηση ID = 0) -->
     <div class="image-container">
       <img src="1-1 Η Ελένη στον τάφο του Πρωτέα.webp" alt="1-1">
       <!-- Σωστή (true) είναι η πρώτη -->
-      <button data-question-id="0" onclick="checkAnswer(this, 0, true)">Η Ελένη στον τάφο του Πρωτέα 🏺</button>
-      <button data-question-id="0" onclick="checkAnswer(this, 0, false)">Η Ελένη σε βασιλικό συμπόσιο 🍷</button>
+      <button data-question-id="0" data-correct="true"  onclick="checkAnswer(this, 0, true)">Η Ελένη στον τάφο του Πρωτέα</button>
+      <button data-question-id="0" data-correct="false" onclick="checkAnswer(this, 0, false)">Η Ελένη σε βασιλικό συμπόσιο</button>
     </div>
     <!-- Εικόνα 1-2 (ερώτηση ID = 1) -->
     <div class="image-container">
       <img src="1-2 Η εμφάνιση του Μενελάου.webp" alt="1-2">
       <!-- Σωστή (true) είναι η δεύτερη -->
-      <button data-question-id="1" onclick="checkAnswer(this, 1, false)">Η εξαφάνιση του Μενελάου ❓</button>
-      <button data-question-id="1" onclick="checkAnswer(this, 1, true)">Η εμφάνιση του Μενελάου 👀</button>
+      <button data-question-id="1" data-correct="false" onclick="checkAnswer(this, 1, false)">Η εξαφάνιση του Μενελάου</button>
+      <button data-question-id="1" data-correct="true"  onclick="checkAnswer(this, 1, true)">Η εμφάνιση του Μενελάου</button>
     </div>
     <!-- Εικόνα 1-3 (ερώτηση ID = 2) -->
     <div class="image-container">
       <img src="1-3 Η αναγνώριση.webp" alt="1-3">
       <!-- Σωστή (true) είναι η πρώτη -->
-      <button data-question-id="2" onclick="checkAnswer(this, 2, true)">Η αναγνώριση 🤝</button>
-      <button data-question-id="2" onclick="checkAnswer(this, 2, false)">Η ύποπτη συμφωνία 🤨</button>
+      <button data-question-id="2" data-correct="true"  onclick="checkAnswer(this, 2, true)">Η αναγνώριση</button>
+      <button data-question-id="2" data-correct="false" onclick="checkAnswer(this, 2, false)">Η ύποπτη συμφωνία</button>
     </div>
   </div>
   <div class="row">
@@ -167,43 +187,43 @@
     <div class="image-container">
       <img src="1-4 Η είδηση του Αγγελιαφόρου.webp" alt="1-4">
       <!-- Σωστή (true) είναι η δεύτερη -->
-      <button data-question-id="3" onclick="checkAnswer(this, 3, false)">Η προδοσία του υπηρέτη 😠</button>
-      <button data-question-id="3" onclick="checkAnswer(this, 3, true)">Η είδηση του Αγγελιαφόρου 🏃</button>
+      <button data-question-id="3" data-correct="false" onclick="checkAnswer(this, 3, false)">Η προδοσία του υπηρέτη</button>
+      <button data-question-id="3" data-correct="true"  onclick="checkAnswer(this, 3, true)">Η είδηση του Αγγελιαφόρου</button>
     </div>
     <!-- Εικόνα 1-5 (ερώτηση ID = 4) -->
     <div class="image-container">
       <img src="1-5 Η συγκινητική ένωση.webp" alt="1-5">
       <!-- Σωστή (true) είναι η πρώτη -->
-      <button data-question-id="4" onclick="checkAnswer(this, 4, true)">Η συγκινητική ένωση ❤️</button>
-      <button data-question-id="4" onclick="checkAnswer(this, 4, false)">Η αιφνίδια σύγκρουση 💥</button>
+      <button data-question-id="4" data-correct="true"  onclick="checkAnswer(this, 4, true)">Η συγκινητική ένωση</button>
+      <button data-question-id="4" data-correct="false" onclick="checkAnswer(this, 4, false)">Η αιφνίδια σύγκρουση</button>
     </div>
   </div>
 </div>
 
 <!-- Σκηνή 2 -->
-<h2>Σκηνή 2 🌟🎉</h2>
+<h2>Σκηνή 2</h2>
 <div class="scene">
   <div class="row">
     <!-- Εικόνα 2-1 (ερώτηση ID = 5) -->
     <div class="image-container">
       <img src="2-1 Η είσοδος του Αγγελιαφόρου.webp" alt="2-1">
       <!-- Σωστή (true) η δεύτερη -->
-      <button data-question-id="5" onclick="checkAnswer(this, 5, false)">Η αναχώρηση του Μενελάου 👋</button>
-      <button data-question-id="5" onclick="checkAnswer(this, 5, true)">Η είσοδος του Αγγελιαφόρου 🚪</button>
+      <button data-question-id="5" data-correct="false" onclick="checkAnswer(this, 5, false)">Η αναχώρηση του Μενελάου</button>
+      <button data-question-id="5" data-correct="true"  onclick="checkAnswer(this, 5, true)">Η είσοδος του Αγγελιαφόρου</button>
     </div>
     <!-- Εικόνα 2-2 (ερώτηση ID = 6) -->
     <div class="image-container">
       <img src="2-2 Η αποκάλυψη του ειδώλου.webp" alt="2-2">
       <!-- Σωστή (true) η πρώτη -->
-      <button data-question-id="6" onclick="checkAnswer(this, 6, true)">Η αποκάλυψη του ειδώλου 🔮</button>
-      <button data-question-id="6" onclick="checkAnswer(this, 6, false)">Η καταστροφή του παλατιού 🏚️</button>
+      <button data-question-id="6" data-correct="true"  onclick="checkAnswer(this, 6, true)">Η αποκάλυψη του ειδώλου</button>
+      <button data-question-id="6" data-correct="false" onclick="checkAnswer(this, 6, false)">Η καταστροφή του παλατιού</button>
     </div>
     <!-- Εικόνα 2-3 (ερώτηση ID = 7) -->
     <div class="image-container">
       <img src="2-3 Η πλήρης αναγνώριση.webp" alt="2-3">
       <!-- Σωστή (true) η δεύτερη -->
-      <button data-question-id="7" onclick="checkAnswer(this, 7, false)">Η αδικαιολόγητη αμφιβολία 🤔</button>
-      <button data-question-id="7" onclick="checkAnswer(this, 7, true)">Η πλήρης αναγνώριση ✅</button>
+      <button data-question-id="7" data-correct="false" onclick="checkAnswer(this, 7, false)">Η αδικαιολόγητη αμφιβολία</button>
+      <button data-question-id="7" data-correct="true"  onclick="checkAnswer(this, 7, true)">Η πλήρης αναγνώριση</button>
     </div>
   </div>
   <div class="row">
@@ -211,43 +231,43 @@
     <div class="image-container">
       <img src="2-4 Η ένωση της Ελένης και του Μενελάου.webp" alt="2-4">
       <!-- Σωστή (true) η πρώτη -->
-      <button data-question-id="8" onclick="checkAnswer(this, 8, true)">Η ένωση της Ελένης και του Μενελάου 👩‍❤️‍👨</button>
-      <button data-question-id="8" onclick="checkAnswer(this, 8, false)">Η συνάντηση της Ελένης με την Ερμιόνη 👩</button>
+      <button data-question-id="8" data-correct="true"  onclick="checkAnswer(this, 8, true)">Η ένωση της Ελένης και του Μενελάου</button>
+      <button data-question-id="8" data-correct="false" onclick="checkAnswer(this, 8, false)">Η συνάντηση της Ελένης με την Ερμιόνη</button>
     </div>
     <!-- Εικόνα 2-5 (ερώτηση ID = 9) -->
     <div class="image-container">
       <img src="2-5 Η αμήχανη στιγμή του Αγγελιαφόρου.webp" alt="2-5">
       <!-- Σωστή (true) η δεύτερη -->
-      <button data-question-id="9" onclick="checkAnswer(this, 9, false)">Η θριαμβευτική είσοδος της Θεονόης 👑</button>
-      <button data-question-id="9" onclick="checkAnswer(this, 9, true)">Η αμήχανη στιγμή του Αγγελιαφόρου 😅</button>
+      <button data-question-id="9" data-correct="false" onclick="checkAnswer(this, 9, false)">Η θριαμβευτική είσοδος της Θεονόης</button>
+      <button data-question-id="9" data-correct="true"  onclick="checkAnswer(this, 9, true)">Η αμήχανη στιγμή του Αγγελιαφόρου</button>
     </div>
   </div>
 </div>
 
 <!-- Σκηνή 3 -->
-<h2>Σκηνή 3 😎⚔️</h2>
+<h2>Σκηνή 3</h2>
 <div class="scene">
   <div class="row">
     <!-- Εικόνα 3-1 (ερώτηση ID = 10) -->
     <div class="image-container">
       <img src="3-1 Οι δοκιμασίες του Μενελάου.webp" alt="3-1">
       <!-- Σωστή (true) η πρώτη -->
-      <button data-question-id="10" onclick="checkAnswer(this, 10, true)">Οι δοκιμασίες του Μενελάου 🏋️</button>
-      <button data-question-id="10" onclick="checkAnswer(this, 10, false)">Τα μαγικά τεχνάσματα του Πρωτέα 🪄</button>
+      <button data-question-id="10" data-correct="true"  onclick="checkAnswer(this, 10, true)">Οι δοκιμασίες του Μενελάου</button>
+      <button data-question-id="10" data-correct="false" onclick="checkAnswer(this, 10, false)">Τα μαγικά τεχνάσματα του Πρωτέα</button>
     </div>
     <!-- Εικόνα 3-2 (ερώτηση ID = 11) -->
     <div class="image-container">
       <img src="3-2 Ο νέος κίνδυνος.webp" alt="3-2">
       <!-- Σωστή (true) η δεύτερη -->
-      <button data-question-id="11" onclick="checkAnswer(this, 11, false)">Η απρόσμενη σωτηρία 🙌</button>
-      <button data-question-id="11" onclick="checkAnswer(this, 11, true)">Ο νέος κίνδυνος ⚠️</button>
+      <button data-question-id="11" data-correct="false" onclick="checkAnswer(this, 11, false)">Η απρόσμενη σωτηρία</button>
+      <button data-question-id="11" data-correct="true"  onclick="checkAnswer(this, 11, true)">Ο νέος κίνδυνος</button>
     </div>
     <!-- Εικόνα 3-3 (ερώτηση ID = 12) -->
     <div class="image-container">
       <img src="3-3 Η πρόταση της Ελένης.webp" alt="3-3">
       <!-- Σωστή (true) η πρώτη -->
-      <button data-question-id="12" onclick="checkAnswer(this, 12, true)">Η πρόταση της Ελένης 💡</button>
-      <button data-question-id="12" onclick="checkAnswer(this, 12, false)">Η αντίδραση του Μενελάου 😠</button>
+      <button data-question-id="12" data-correct="true"  onclick="checkAnswer(this, 12, true)">Η πρόταση της Ελένης</button>
+      <button data-question-id="12" data-correct="false" onclick="checkAnswer(this, 12, false)">Η αντίδραση του Μενελάου</button>
     </div>
   </div>
   <div class="row">
@@ -255,43 +275,43 @@
     <div class="image-container">
       <img src="3-4 Ο αμοιβαίος όρκος.webp" alt="3-4">
       <!-- Σωστή (true) η δεύτερη -->
-      <button data-question-id="13" onclick="checkAnswer(this, 13, false)">Η αιφνίδια διένεξη 🤯</button>
-      <button data-question-id="13" onclick="checkAnswer(this, 13, true)">Ο αμοιβαίος όρκος 🤝</button>
+      <button data-question-id="13" data-correct="false" onclick="checkAnswer(this, 13, false)">Η αιφνίδια διένεξη</button>
+      <button data-question-id="13" data-correct="true"  onclick="checkAnswer(this, 13, true)">Ο αμοιβαίος όρκος</button>
     </div>
     <!-- Εικόνα 3-5 (ερώτηση ID = 14) -->
     <div class="image-container">
       <img src="3-5 Η απόφαση της φυγής.webp" alt="3-5">
       <!-- Σωστή (true) η πρώτη -->
-      <button data-question-id="14" onclick="checkAnswer(this, 14, true)">Η απόφαση της φυγής 🏃‍♂️</button>
-      <button data-question-id="14" onclick="checkAnswer(this, 14, false)">Η προετοιμασία για μάχη ⚔️</button>
+      <button data-question-id="14" data-correct="true"  onclick="checkAnswer(this, 14, true)">Η απόφαση της φυγής</button>
+      <button data-question-id="14" data-correct="false" onclick="checkAnswer(this, 14, false)">Η προετοιμασία για μάχη</button>
     </div>
   </div>
 </div>
 
 <!-- Σκηνή 4 -->
-<h2>Σκηνή 4 🏛️⚖️</h2>
+<h2>Σκηνή 4</h2>
 <div class="scene">
   <div class="row">
     <!-- Εικόνα 4-1 (ερώτηση ID = 15) -->
     <div class="image-container">
       <img src="4-1 Η επιβλητική είσοδος της Θεονόης.webp" alt="4-1">
       <!-- Σωστή (true) η πρώτη -->
-      <button data-question-id="15" onclick="checkAnswer(this, 15, true)">Η επιβλητική είσοδος της Θεονόης 👑</button>
-      <button data-question-id="15" onclick="checkAnswer(this, 15, false)">Η απροσδόκητη άφιξη του Θεοκλύμενου 🚶</button>
+      <button data-question-id="15" data-correct="true"  onclick="checkAnswer(this, 15, true)">Η επιβλητική είσοδος της Θεονόης</button>
+      <button data-question-id="15" data-correct="false" onclick="checkAnswer(this, 15, false)">Η απροσδόκητη άφιξη του Θεοκλύμενου</button>
     </div>
     <!-- Εικόνα 4-2 (ερώτηση ID = 16) -->
     <div class="image-container">
       <img src="4-2 Η ικεσία της Ελένης.webp" alt="4-2">
       <!-- Σωστή (true) η πρώτη -->
-      <button data-question-id="16" onclick="checkAnswer(this, 16, true)">Η ικεσία της Ελένης 🙏</button>
-      <button data-question-id="16" onclick="checkAnswer(this, 16, false)">Η οργή της Θεονόης 😡</button>
+      <button data-question-id="16" data-correct="true"  onclick="checkAnswer(this, 16, true)">Η ικεσία της Ελένης</button>
+      <button data-question-id="16" data-correct="false" onclick="checkAnswer(this, 16, false)">Η οργή της Θεονόης</button>
     </div>
     <!-- Εικόνα 4-3 (ερώτηση ID = 17) -->
     <div class="image-container">
       <img src="4-3 Η ομιλία του Μενελάου.webp" alt="4-3">
       <!-- Σωστή (true) η δεύτερη -->
-      <button data-question-id="17" onclick="checkAnswer(this, 17, false)">Η καταδίκη του Μενελάου 🚫</button>
-      <button data-question-id="17" onclick="checkAnswer(this, 17, true)">Η ομιλία του Μενελάου 🗣️</button>
+      <button data-question-id="17" data-correct="false" onclick="checkAnswer(this, 17, false)">Η καταδίκη του Μενελάου</button>
+      <button data-question-id="17" data-correct="true"  onclick="checkAnswer(this, 17, true)">Η ομιλία του Μενελάου</button>
     </div>
   </div>
   <div class="row">
@@ -299,43 +319,43 @@
     <div class="image-container">
       <img src="4-4 Ο εσωτερικός αγώνας της Θεονόης.webp" alt="4-4">
       <!-- Σωστή (true) η πρώτη -->
-      <button data-question-id="18" onclick="checkAnswer(this, 18, true)">Ο εσωτερικός αγώνας της Θεονόης 🤯</button>
-      <button data-question-id="18" onclick="checkAnswer(this, 18, false)">Η ερωτική εξομολόγηση της Ελένης 💕</button>
+      <button data-question-id="18" data-correct="true"  onclick="checkAnswer(this, 18, true)">Ο εσωτερικός αγώνας της Θεονόης</button>
+      <button data-question-id="18" data-correct="false" onclick="checkAnswer(this, 18, false)">Η ερωτική εξομολόγηση της Ελένης</button>
     </div>
     <!-- Εικόνα 4-5 (ερώτηση ID = 19) -->
     <div class="image-container">
       <img src="4-5 Η απόφαση της Θεονόης.webp" alt="4-5">
       <!-- Σωστή (true) η δεύτερη -->
-      <button data-question-id="19" onclick="checkAnswer(this, 19, false)">Η θυσία της Θεονόης 🩸</button>
-      <button data-question-id="19" onclick="checkAnswer(this, 19, true)">Η απόφαση της Θεονόης ✅</button>
+      <button data-question-id="19" data-correct="false" onclick="checkAnswer(this, 19, false)">Η θυσία της Θεονόης</button>
+      <button data-question-id="19" data-correct="true"  onclick="checkAnswer(this, 19, true)">Η απόφαση της Θεονόης</button>
     </div>
   </div>
 </div>
 
 <!-- Σκηνή 5 -->
-<h2>Σκηνή 5 🚢🏃‍♀️</h2>
+<h2>Σκηνή 5</h2>
 <div class="scene">
   <div class="row">
     <!-- Εικόνα 5-1 (ερώτηση ID = 20) -->
     <div class="image-container">
       <img src="5-1 Η αρχική πρόταση του Μενελάου.webp" alt="5-1">
       <!-- Σωστή (true) η πρώτη -->
-      <button data-question-id="20" onclick="checkAnswer(this, 20, true)">Η αρχική πρόταση του Μενελάου 💬</button>
-      <button data-question-id="20" onclick="checkAnswer(this, 20, false)">Η επίσημη πρόσκληση από τη Σπάρτη 🏛️</button>
+      <button data-question-id="20" data-correct="true"  onclick="checkAnswer(this, 20, true)">Η αρχική πρόταση του Μενελάου</button>
+      <button data-question-id="20" data-correct="false" onclick="checkAnswer(this, 20, false)">Η επίσημη πρόσκληση από τη Σπάρτη</button>
     </div>
     <!-- Εικόνα 5-2 (ερώτηση ID = 21) -->
     <div class="image-container">
       <img src="5-2 Η Ελένη αντιπροτείνει ένα πιο έξυπνο σχέδιο.webp" alt="5-2">
       <!-- Σωστή (true) η πρώτη -->
-      <button data-question-id="21" onclick="checkAnswer(this, 21, true)">Η Ελένη αντιπροτείνει ένα πιο έξυπνο σχέδιο 🧠</button>
-      <button data-question-id="21" onclick="checkAnswer(this, 21, false)">Η Ελένη ζητά βοήθεια από τις θεραπαινίδες 🤷‍♀️</button>
+      <button data-question-id="21" data-correct="true"  onclick="checkAnswer(this, 21, true)">Η Ελένη αντιπροτείνει ένα πιο έξυπνο σχέδιο</button>
+      <button data-question-id="21" data-correct="false" onclick="checkAnswer(this, 21, false)">Η Ελένη ζητά βοήθεια από τις θεραπαινίδες</button>
     </div>
     <!-- Εικόνα 5-4 (ερώτηση ID = 22) -->
     <div class="image-container">
       <img src="5-4 Η προσποίηση της Ελένης.webp" alt="5-4">
       <!-- Σωστή (true) η πρώτη -->
-      <button data-question-id="22" onclick="checkAnswer(this, 22, true)">Η προσποίηση της Ελένης 🎭</button>
-      <button data-question-id="22" onclick="checkAnswer(this, 22, false)">Η αποκάλυψη του απατηλού οράματος 😮</button>
+      <button data-question-id="22" data-correct="true"  onclick="checkAnswer(this, 22, true)">Η προσποίηση της Ελένης</button>
+      <button data-question-id="22" data-correct="false" onclick="checkAnswer(this, 22, false)">Η αποκάλυψη του απατηλού οράματος</button>
     </div>
   </div>
   <div class="row">
@@ -343,32 +363,32 @@
     <div class="image-container">
       <img src="5-3 Η τελική συμφωνία.webp" alt="5-3">
       <!-- Σωστή (true) η δεύτερη -->
-      <button data-question-id="23" onclick="checkAnswer(this, 23, false)">Η διακοπή της διαπραγμάτευσης ❌</button>
-      <button data-question-id="23" onclick="checkAnswer(this, 23, true)">Η τελική συμφωνία 🤝</button>
+      <button data-question-id="23" data-correct="false" onclick="checkAnswer(this, 23, false)">Η διακοπή της διαπραγμάτευσης</button>
+      <button data-question-id="23" data-correct="true"  onclick="checkAnswer(this, 23, true)">Η τελική συμφωνία</button>
     </div>
     <!-- Εικόνα 5-5 (ερώτηση ID = 24) -->
     <div class="image-container">
       <img src="5-5 Η απόδραση με πλοίο.webp" alt="5-5">
       <!-- Σωστή (true) η πρώτη -->
-      <button data-question-id="24" onclick="checkAnswer(this, 24, true)">Η απόδραση με πλοίο 🚀</button>
-      <button data-question-id="24" onclick="checkAnswer(this, 24, false)">Η συνθηκολόγηση με τους εχθρούς ✋</button>
+      <button data-question-id="24" data-correct="true"  onclick="checkAnswer(this, 24, true)">Η απόδραση με πλοίο</button>
+      <button data-question-id="24" data-correct="false" onclick="checkAnswer(this, 24, false)">Η συνθηκολόγηση με τους εχθρούς</button>
     </div>
   </div>
 </div>
 
-<!-- Κουμπί και περιοχή εμφάνισης σκορ -->
-<button class="score-button" onclick="showScore()">Δες το σκορ σου 😎</button>
+<!-- Κουμπί εμφάνισης σκορ & περιοχή σκορ -->
+<button class="score-button" onclick="showScore()">Δες το σκορ</button>
 <div id="scoreDisplay"></div>
 
 <!-- Κουμπί εκτύπωσης (χρυσό πλαίσιο) -->
 <button class="print-button" onclick="window.print()">Εκτύπωση</button>
 
 <script>
-  // Ορισμός πηγών ήχου (υποθέτουμε ότι τα αρχεία .mp3 υπάρχουν στο ίδιο φάκελο)
+  // Ορισμός πηγών ήχου
   const successAudio = new Audio('success-sound.mp3');
   const failAudio = new Audio('fail-sound.mp3');
 
-  // Πίνακας για την τρέχουσα κατάσταση απάντησης: null αν δεν έχει απαντηθεί.
+  // Αποθήκευση απαντήσεων χρήστη (true, false, ή null)
   let userAnswers = new Array(25).fill(null);
 
   function checkAnswer(button, questionId, isCorrect) {
@@ -378,10 +398,10 @@
 
     // Επαναφέρουμε το χρώμα στα κουμπιά
     siblings.forEach((sib) => {
-      sib.style.backgroundColor = '#555'; 
+      sib.style.backgroundColor = '#555';
     });
 
-    // Χρωματίζουμε πράσινο/κόκκινο και αναπαράγουμε ήχο
+    // Χρωματίζουμε πράσινο/κόκκινο & αναπαράγουμε ήχο
     if (isCorrect) {
       button.style.backgroundColor = 'green';
       successAudio.play();
@@ -394,16 +414,14 @@
   }
 
   function showScore() {
-    // Υπολογίζουμε πόσες απαντήσεις είναι true
     let score = 0;
     for (let i = 0; i < userAnswers.length; i++) {
       if (userAnswers[i] === true) {
         score++;
       }
     }
-    // Προβολή σκορ
     const scoreDisplay = document.getElementById('scoreDisplay');
-    scoreDisplay.innerHTML = `Σκορ: ${score} / 25 🎉`;
+    scoreDisplay.innerHTML = `Σκορ: ${score} / 25`;
   }
 </script>
 
